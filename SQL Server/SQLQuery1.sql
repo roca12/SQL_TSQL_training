@@ -52,4 +52,25 @@ with DateCte (date) as(
 )
 select date from DateCte option (MaxRecursion 0);
 
+--trycatch con levantamiento de errores
+declare @msg nvarchar(50)='Aqui hay un problema';
+begin try
+print'primera sentencia';
+raiserror(@msg,11,1);
+print'segunda sentencia';
+end try
+begin catch
+	print 'ERROR: '+error_message();
+end catch
 
+--trycatch con levantamiento de errores y severidad
+begin try
+print'primera sentencia';
+raiserror('Aqui esta el problema',10,15);
+print'segunda sentencia';
+end try
+begin catch
+	print 'ERROR: '+error_message();
+end catch
+
+--Relanzando errores en catch
